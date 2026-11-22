@@ -238,7 +238,7 @@
                         </div>
                     </div>
 
-                    <!-- Сетка-матрица 140 комбинаций Ширина x Длина (компактные кнопки по ширине текста) -->
+                    <!-- Сетка-матрица 140 комбинаций Ширина x Длина (минимальная ширина min-w-[98px]) -->
                     <div>
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                             <h3 class="text-sm font-bold text-gray-900">Выберите свой размер (Ширина × Длина)</h3>
@@ -534,7 +534,7 @@
             });
         }
 
-        // Отрисовка Варианта 1: отдельные кнопки высоты/цвета + компактная матрица 140 размеров (Ширина x Длина)
+        // Отрисовка Варианта 1: отдельные кнопки высоты/цвета + матрица 140 размеров с гибкой минимальной шириной min-w-[98px]
         function renderMatrixSection() {
             const heightContainer = document.getElementById('matrix-height-buttons');
             heightContainer.innerHTML = heights.map(h => {
@@ -570,7 +570,7 @@
                 `;
             }).join('');
 
-            // Матрица 140 комбинаций (Ширина x Длина) с минимальными боковыми полями
+            // Матрица 140 комбинаций (Ширина x Длина): минимальная ширина min-w-[98px] (ровно на стандартном шрифте, гибко при увеличении)
             const gridContainer = document.getElementById('matrix-grid-container');
             let html = '';
             widths.forEach(w => {
@@ -583,7 +583,7 @@
                     html += `
                         <button type="button"
                             onclick="setSizePair('${w}', '${l}')"
-                            class="px-2.5 py-1.5 text-xs rounded-lg border transition-all text-center cursor-pointer whitespace-nowrap ${btnClasses}">
+                            class="min-w-[98px] px-2 py-1.5 text-xs rounded-lg border transition-all text-center cursor-pointer whitespace-nowrap ${btnClasses}">
                             ${w} × ${l} м
                         </button>
                     `;
