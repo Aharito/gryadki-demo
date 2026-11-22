@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Купить широкие грядки ПВХ в Новосибирске</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+    <!-- Шапка сайта -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl font-bold text-green-600 tracking-wide">Грядки & Клумбы</span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm">
+                <div class="hidden sm:flex items-center space-x-1 text-gray-500">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>Новосибирск</span>
+                </div>
+                <a href="tel:88005059492" class="font-semibold text-gray-900 hover:text-green-600 transition-colors">8 (800) 505-94-92</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Хлебные крошки и заголовок -->
+        <nav class="text-xs text-gray-400 mb-2">
+            <span class="hover:text-gray-600 cursor-pointer">Главная</span> / 
+            <span class="hover:text-gray-600 cursor-pointer">Все грядки</span> / 
+            <span class="text-gray-600">Грядки для участка</span>
+        </nav>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Широкие пластиковые грядки</h1>
+        <p class="text-sm text-gray-500 mb-8 max-w-2xl">
+            Производство из прочного, экологичного и светостойкого ПВХ-пластика (из которого изготавливают окна и подоконники).
+        </p>
+
+        <!-- Главный контейнер интерфейса -->
+        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
+            
+            <!-- Мобильный блок селекторов -->
+            <div class="w-full grid grid-cols-2 gap-3 lg:hidden bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Длина, м</label>
+                    <select id="select-length-mobile" onchange="syncSelectors(this, 'length')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                        <option value="2">2 м</option>
+                        <option value="3" selected>3 м</option>
+                        <option value="4">4 м</option>
+                        <option value="6">6 м</option>
+                        <option value="12">12 м</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Ширина, м</label>
+                    <select id="select-width-mobile" onchange="syncSelectors(this, 'width')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                        <option value="1.4">1.4 м</option>
+                        <option value="1.5" selected>1.5 м</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Высота борта, м</label>
+                    <select id="select-height-mobile" onchange="syncSelectors(this, 'height')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                        <option value="0.185">0.185 м</option>
+                        <option value="0.37" selected>0.37 м</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Цвет</label>
+                    <select id="select-color-mobile" onchange="syncSelectors(this, 'color')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                        <option value="зелёный" selected>🟢 Зелёный</option>
+                        <option value="коричневый">🟤 Коричневый</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Левая колонка: ЕДИНСТВЕННАЯ карточка товара -->
+            <div id="product-card" class="w-full lg:flex-1 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-4 sm:p-6 transition-all duration-300">
+                <div class="flex flex-col md:flex-row gap-6 sm:gap-8 items-start">
+                    
+                    <!-- ЛЕВАЯ КОЛОНКА: Монолитный контейнер (Фото + Цена) растягивается по высоте (self-stretch) -->
+                    <div class="w-full md:w-[60%] flex flex-col border border-gray-100 rounded-xl overflow-hidden bg-gray-50/50 md:self-stretch justify-between">
+                        
+                        <!-- Верхняя часть: Изображение центрируется внутри и не деформируется -->
+                        <div class="relative flex-1 flex items-center justify-center p-4 bg-white min-h-[260px]">
+                            <div id="svg-container" class="w-full h-full flex items-center justify-center transition-all duration-300 max-h-[250px]">
+                                <!-- SVG контент генерируется скриптом на лету -->
+                            </div>
+                            <span id="product-discount" class="absolute top-3 left-3 bg-red-500 text-white font-bold text-[11px] px-2.5 py-1 rounded-full shadow-sm z-10 block tracking-wide"></span>
+                        </div>
+                        
+                        <!-- Нижняя часть: Блок цены жестко зафиксирован внизу монолита -->
+                        <div class="bg-gray-50 p-4 flex items-center justify-between border-t border-gray-100 min-h-[84px] gap-4 mt-auto">
+                            <div class="flex flex-col justify-between h-full">
+                                <div class="text-[11px] text-gray-400 uppercase tracking-wider font-bold text-left mb-1">
+                                    Стоимость комплекта:
+                                </div>
+                                <div class="flex items-baseline space-x-3 text-left">
+                                    <span id="price-current" class="text-xl sm:text-2xl font-black text-gray-900 tracking-tight whitespace-nowrap"></span>
+                                    <span id="price-old" class="text-xs sm:text-sm text-gray-400 line-through whitespace-nowrap"></span>
+                                </div>
+                            </div>
+                            <!-- Расчетная экономия справа -->
+                            <div class="text-right border-l border-gray-200/80 pl-4 h-10 flex flex-col justify-center">
+                                <div class="text-[9px] text-gray-400 uppercase tracking-wider font-semibold">Ваша выгода:</div>
+                                <div id="price-economy" class="text-sm font-bold text-red-500 whitespace-nowrap"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ПРАВАЯ КОЛОНКА: Только чистый текст параметров и кнопка покупки внизу -->
+                    <div class="w-full md:w-[40%] flex flex-col justify-between md:self-stretch">
+                        <div class="flex flex-col h-full justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-green-600 uppercase tracking-wider bg-green-50 px-2.5 py-0.5 rounded-md">В наличии</span>
+                                    <span class="text-xs text-gray-400">Арт: ПВХ-ШГ</span>
+                                </div>
+                                <h2 id="product-title" class="text-lg sm:text-xl font-bold text-gray-900 mb-2 transition-all leading-tight"></h2>
+                                <p id="product-description" class="text-xs text-gray-500 mb-3 leading-relaxed"></p>
+                                
+                                <!-- Характеристики -->
+                                <div class="bg-gray-50 rounded-xl p-3 space-y-1.5 mb-4">
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-gray-400">Длина конструкции:</span>
+                                        <span id="param-length" class="font-medium text-gray-800"></span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-gray-400">Ширина конструкции:</span>
+                                        <span id="param-width" class="font-medium text-gray-800"></span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-gray-400">Высота бортика:</span>
+                                        <span id="param-height" class="font-medium text-gray-800"></span>
+                                    </div>
+                                    <div class="flex justify-between text-xs">
+                                        <span class="text-gray-400">Цвет пластика:</span>
+                                        <span id="param-color" class="font-medium text-gray-800 flex items-center gap-1.5"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Кнопка и бейдж фиксации цены прижаты строго к низу -->
+                            <div class="pt-4 mt-auto flex flex-col gap-2">
+                                <div class="text-center md:text-left">
+                                    <span class="inline-block text-[10px] text-green-700 font-bold uppercase tracking-wider whitespace-nowrap bg-green-50/80 px-2 py-0.5 rounded border border-green-200/60">
+                                        ✓ Цена зафиксирована
+                                    </span>
+                                </div>
+                                <button onclick="showSuccessNotification()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold text-xs py-3.5 rounded-xl shadow-md hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center space-x-2">
+                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                    <span>Добавить в корзину</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Десктопный блок селекторов -->
+            <div class="hidden lg:flex flex-col w-80 bg-white p-5 rounded-2xl border border-gray-200 shadow-sm sticky top-24">
+                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Параметры грядки</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Длина конструкции</label>
+                        <select id="select-length-desktop" onchange="syncSelectors(this, 'length')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                            <option value="2">2 метра</option>
+                            <option value="3" selected>3 метра</option>
+                            <option value="4">4 метра</option>
+                            <option value="6">6 метров</option>
+                            <option value="12">12 метров</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Ширина грядки</label>
+                        <select id="select-width-desktop" onchange="syncSelectors(this, 'width')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                            <option value="1.4">1.4 метра</option>
+                            <option value="1.5" selected>1.5 метра</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Высота бортика</label>
+                        <select id="select-height-desktop" onchange="syncSelectors(this, 'height')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                            <option value="0.185">0.185 м (Низкий борт)</option>
+                            <option value="0.37" selected>0.37 м (Высокий борт)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Цвет ПВХ-профиля</label>
+                        <select id="select-color-desktop" onchange="syncSelectors(this, 'color')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                            <option value="зелёный" selected>🟢 Зелёный сад</option>
+                            <option value="коричневый">🟤 Коричневый стандарт</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+                    <span class="text-xs text-gray-400">Доставка в г. <span class="text-gray-600 underline cursor-pointer font-medium">Новосибирск</span> и еще 50 городов РФ.</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Всплывающее уведомление -->
+    <div id="toast-message" class="fixed bottom-5 right-5 bg-gray-900 text-white text-sm px-5 py-3.5 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-3">
+        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+        <span id="toast-text">Товар успешно добавлен в корзину!</span>
+    </div>
+
+    <script>
+        const productsDatabase = {};
+
+        const lengths = [2, 3, 4, 6, 12];
+        const widths = [1.4, 1.5];
+        const heights = [0.185, 0.37];
+        const colors = ['зелёный', 'коричневый'];
+
+        // Цветовая палитра для генерации SVG
+        const colorPalette = {
+            'зелёный': { main: '#16a34a', light: '#22c55e', dark: '#15803d', line: '#14532d' },
+            'коричневый': { main: '#78350f', light: '#92400e', dark: '#451a03', line: '#270b00' }
+        };
+
+        lengths.forEach(l => {
+            widths.forEach(w => {
+                heights.forEach(h => {
+                    colors.forEach(c => {
+                        const key = `${l}-${w}-${h}-${c}`;
+                        
+                        let basePrice = Math.round(l * w * h * 3000 + (h === 0.37 ? 4000 : 2000) * (l/2));
+                        if (basePrice < 2500) basePrice = 2850; 
+                        
+                        const oldPrice = Math.round(basePrice * 1.05); 
+                        const economy = oldPrice - basePrice;
+                        
+                        productsDatabase[key] = {
+                            title: `Грядка ПВХ ${w} x ${l} x ${h} м`,
+                            description: `Долговечная грядка из ПВХ-пластика для установки на открытый грунт или в теплицу. Имеет аккуратный рельефный дизайн, легко собирается по инструкции.`,
+                            currentPrice: basePrice.toLocaleString('ru-RU') + ' ₽',
+                            oldPrice: oldPrice.toLocaleString('ru-RU') + ' ₽',
+                            economy: economy.toLocaleString('ru-RU') + ' ₽',
+                            discount: '-5%'
+                        };
+                    });
+                });
+            });
+        });
+
+        // Функция динамической генерации SVG-чертежа грядки
+        function generateBedSVG(colorName, heightVal) {
+            const colors = colorPalette[colorName] || colorPalette['зелёный'];
+            const hOffset = heightVal === '0.37' ? 45 : 25;
+            
+            return `
+            <svg viewBox="0 0 400 240" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <!-- Земля внутри грядки -->
+                <polygon points="50,130 200,80 350,120 200,170" fill="#4b3621" opacity="0.95"/>
+                <polygon points="52,128 200,82 348,118 200,168" fill="#36220f"/>
+                
+                <!-- Листва / Растения -->
+                <circle cx="170" cy="95" r="22" fill="#15803d" opacity="0.8"/>
+                <circle cx="210" cy="90" r="26" fill="#16a34a" opacity="0.85"/>
+                <circle cx="250" cy="100" r="18" fill="#15803d" opacity="0.7"/>
+                <circle cx="130" cy="105" r="20" fill="#16a34a" opacity="0.75"/>
+                <!-- Цветы пионов -->
+                <circle cx="205" cy="80" r="6" fill="#fff" stroke="#fbcfe8" stroke-width="1"/>
+                <circle cx="215" cy="85" r="5" fill="#fff" stroke="#fbcfe8" stroke-width="1"/>
+                <circle cx="165" cy="88" r="6" fill="#fff" stroke="#fbcfe8" stroke-width="1"/>
+
+                <!-- ЗАДНИЕ БОРТА -->
+                <polygon points="200,80 350,120 350,${120 - hOffset/2} 200,${80 - hOffset/2}" fill="${colors.dark}" opacity="0.3"/>
+                <polygon points="50,130 200,80 200,${80 - hOffset/2} 50,${130 - hOffset/2}" fill="${colors.main}" opacity="0.3"/>
+
+                <!-- ПЕРЕДНИЙ ЛЕВЫЙ БОРТ -->
+                <polygon points="50,130 200,170 200,${170 - hOffset} 50,${130 - hOffset}" fill="${colors.main}" stroke="${colors.line}" stroke-width="1.5"/>
+                <line x1="50" y1="${130 - hOffset*0.33}" x2="200" y2="${170 - hOffset*0.33}" stroke="${colors.dark}" stroke-width="1.2"/>
+                <line x1="50" y1="${130 - hOffset*0.66}" x2="200" y2="${170 - hOffset*0.66}" stroke="${colors.light}" stroke-width="1"/>
+
+                <!-- ПЕРЕДНИЙ ПРАВЫЙ БОРТ -->
+                <polygon points="200,170 350,120 350,${120 - hOffset} 200,${170 - hOffset}" fill="${colors.dark}" stroke="${colors.line}" stroke-width="1.5"/>
+                <line x1="200" y1="${170 - hOffset*0.33}" x2="350" y2="${120 - hOffset*0.33}" stroke="${colors.line}" stroke-width="1.2"/>
+                <line x1="200" y1="${170 - hOffset*0.66}" x2="350" y2="${120 - hOffset*0.66}" stroke="${colors.main}" stroke-width="1"/>
+
+                <!-- УГЛОВОЙ СОЕДИНИТЕЛЬНЫЙ ПРОФИЛЬ -->
+                <polygon points="196,${170 - hOffset - 2} 204,${170 - hOffset} 204,173 196,171" fill="${colors.light}" stroke="${colors.line}" stroke-width="1"/>
+                
+                <!-- Текст подписи типа профиля -->
+                <text x="200" y="220" text-anchor="middle" fill="${colors.dark}" font-size="11" font-weight="600" letter-spacing="1">
+                    ПВХ ПРОФИЛЬ (${colorName.toUpperCase()})
+                </text>
+            </svg>
+            `;
+        }
+
+        // Синхронизация селекторов
+        function syncSelectors(element, type) {
+            const val = element.value;
+            if (type === 'length') {
+                document.getElementById('select-length-desktop').value = val;
+                document.getElementById('select-length-mobile').value = val;
+            } else if (type === 'width') {
+                document.getElementById('select-width-desktop').value = val;
+                document.getElementById('select-width-mobile').value = val;
+            } else if (type === 'height') {
+                document.getElementById('select-height-desktop').value = val;
+                document.getElementById('select-height-mobile').value = val;
+            } else if (type === 'color') {
+                document.getElementById('select-color-desktop').value = val;
+                document.getElementById('select-color-mobile').value = val;
+            }
+            updateProductCard();
+        }
+
+        // Обновление данных в карточке
+        function updateProductCard() {
+            const length = document.getElementById('select-length-desktop').value;
+            const width = document.getElementById('select-width-desktop').value;
+            const height = document.getElementById('select-height-desktop').value;
+            const color = document.getElementById('select-color-desktop').value;
+
+            const combinationKey = `${length}-${width}-${height}-${color}`;
+            const data = productsDatabase[combinationKey];
+
+            if (!data) return;
+
+            document.getElementById('product-title').innerText = data.title;
+            document.getElementById('product-description').innerText = data.description;
+            document.getElementById('price-current').innerText = data.currentPrice;
+            document.getElementById('price-old').innerText = data.oldPrice;
+            document.getElementById('price-economy').innerText = data.economy;
+            document.getElementById('product-discount').innerText = `Скидка ${data.discount}`;
+
+            const container = document.getElementById('svg-container');
+            container.style.opacity = 0;
+            setTimeout(() => {
+                container.innerHTML = generateBedSVG(color, height);
+                container.style.opacity = 1;
+            }, 100);
+
+            document.getElementById('param-length').innerText = `${length} м`;
+            document.getElementById('param-width').innerText = `${width} м`;
+            document.getElementById('param-height').innerText = `${height} м`;
+            
+            const colorMarker = color === 'зелёный' ? '🟢' : '🟤';
+            document.getElementById('param-color').innerHTML = `<span class="text-xs">${colorMarker}</span> <span>${color.charAt(0).toUpperCase() + color.slice(1)}</span>`;
+        }
+
+        function showSuccessNotification() {
+            const toast = document.getElementById('toast-message');
+            const title = document.getElementById('product-title').innerText;
+            document.getElementById('toast-text').innerText = `«${title}» добавлена в корзину!`;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        window.onload = function() {
+            updateProductCard();
+        };
+    </script>
+</body>
+</html>
