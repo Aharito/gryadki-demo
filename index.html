@@ -15,13 +15,13 @@
 <body class="bg-gray-50 text-gray-800 min-h-screen">
 
     <!-- Панель переключения вариантов прототипа для демонстрации клиенту -->
-    <div class="bg-gray-900 text-white border-b border-gray-800 sticky top-0 z-50 shadow-md">
+    <div class="bg-[#F9FAFB] text-gray-800 border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div class="flex items-center space-x-2 text-xs text-gray-400">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="font-medium uppercase tracking-wider">Варианты блока выбора грядки</span>
+            <div class="flex items-center space-x-2 text-xs text-gray-700">
+                <span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+                <span class="font-semibold uppercase tracking-wider">БЛОК "ВЫБОР ГРЯДКИ"</span>
             </div>
-            <div class="flex bg-gray-800 p-1 rounded-xl w-full sm:w-auto overflow-x-auto">
+            <div class="flex bg-gray-200/70 p-1 rounded-xl w-full sm:w-auto overflow-x-auto gap-1">
                 <button id="tab-btn-matrix" onclick="switchVariant('matrix')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap">
                     1. Матрица размеров (140 кнопок) + кнопки
                 </button>
@@ -422,16 +422,30 @@
             widthMobile.innerHTML = widths.map(w => `<option value="${w}">${w} м</option>`).join('');
         }
 
-        // Переключение между 3-мя вариантами UI с жестким контролем видимости через inline style
-        function switchVariant(variant) {
+        // Переключение между 3-мя вариантами UI с обновлением GET-параметра в URL (?ui=...)
+        function switchVariant(variant, updateUrl = true) {
+            const validVariants = ['matrix', 'pills', 'selects'];
+            if (!validVariants.includes(variant)) {
+                variant = 'matrix';
+            }
             activeVariant = variant;
 
-            ['matrix', 'pills', 'selects'].forEach(v => {
+            if (updateUrl && window.history && window.history.replaceState) {
+                try {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('ui', variant);
+                    window.history.replaceState({}, '', url.toString());
+                } catch (e) {
+                    // Игнорируем в изолированных песочницах без полноценного origin
+                }
+            }
+
+            validVariants.forEach(v => {
                 const btn = document.getElementById(`tab-btn-${v}`);
                 if (v === variant) {
                     btn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold bg-green-600 text-white shadow-sm transition-all whitespace-nowrap';
                 } else {
-                    btn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-white hover:bg-gray-700/60 transition-all whitespace-nowrap';
+                    btn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-green-600/50 text-white hover:bg-green-600/75 transition-all whitespace-nowrap';
                 }
             });
 
@@ -670,7 +684,11 @@
             populateSelects();
             syncAllControls();
             updateProductCard();
-            switchVariant('matrix');
+
+            // Чтение GET-параметра ?ui= из URL при загрузке страницы
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialUi = urlParams.get('ui') || 'matrix';
+            switchVariant(initialUi, true);
         };
     </script>
 </body>
