@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Купить широкие грядки ПВХ в Новосибирске</title>
+    <title>Купить широкие грядки ПВХ в Новосибирске — Сравнение UI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -14,8 +14,29 @@
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen">
 
+    <!-- Панель переключения вариантов прототипа для демонстрации клиенту -->
+    <div class="bg-gray-900 text-white border-b border-gray-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center space-x-2 text-xs text-gray-400">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="font-medium uppercase tracking-wider">Варианты блока выбора грядки</span>
+            </div>
+            <div class="flex bg-gray-800 p-1 rounded-xl w-full sm:w-auto overflow-x-auto">
+                <button id="tab-btn-matrix" onclick="switchVariant('matrix')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap">
+                    1. Матрица размеров (140 кнопок) + кнопки
+                </button>
+                <button id="tab-btn-pills" onclick="switchVariant('pills')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap">
+                    2. Группы кнопок-пилюль
+                </button>
+                <button id="tab-btn-selects" onclick="switchVariant('selects')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap">
+                    3. Выпадающие селекты
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Шапка сайта -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header class="bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <span class="text-xl font-bold text-green-600 tracking-wide">Грядки & Клумбы</span>
@@ -37,54 +58,87 @@
             <span class="hover:text-gray-600 cursor-pointer">Все грядки</span> / 
             <span class="text-gray-600">Грядки для участка</span>
         </nav>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Широкие пластиковые грядки</h1>
-        <p class="text-sm text-gray-500 mb-8 max-w-2xl">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Грядки для участка</h1>
+        <p class="text-sm text-gray-500 mb-6 max-w-2xl">
             Производство из прочного, экологичного и светостойкого ПВХ-пластика (из которого изготавливают окна и подоконники).
         </p>
 
+        <!-- Подсказка контекста для текущего варианта (помогает при демонстрации клиенту) -->
+        <div id="variant-hint-banner" class="mb-6 bg-blue-50/70 border border-blue-200/80 rounded-xl px-4 py-3 flex items-start gap-3 text-xs text-blue-900">
+            <svg class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div id="variant-hint-text"></div>
+        </div>
+
         <!-- Главный контейнер интерфейса -->
-        <div class="flex flex-col lg:flex-row gap-8 items-start mb-16">
+        <div id="main-layout-container" class="flex flex-col lg:flex-row gap-8 items-start mb-16">
             
-            <!-- Мобильный блок селекторов -->
-            <div class="w-full grid grid-cols-2 gap-3 lg:hidden bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Длина, м</label>
-                    <select id="select-length-mobile" onchange="syncSelectors(this, 'length')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                        <option value="2">2 м</option>
-                        <option value="3" selected>3 м</option>
-                        <option value="4">4 м</option>
-                        <option value="6">6 м</option>
-                        <option value="12">12 м</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Ширина, м</label>
-                    <select id="select-width-mobile" onchange="syncSelectors(this, 'width')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                        <option value="1.4">1.4 м</option>
-                        <option value="1.5" selected>1.5 м</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Высота борта, м</label>
-                    <select id="select-height-mobile" onchange="syncSelectors(this, 'height')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                        <option value="0.185">0.185 м</option>
-                        <option value="0.37" selected>0.37 м</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Цвет</label>
-                    <select id="select-color-mobile" onchange="syncSelectors(this, 'color')" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
-                        <option value="зелёный" selected>🟢 Зелёный</option>
-                        <option value="коричневый">🟤 Коричневый</option>
-                    </select>
+            <!-- =====================================================================
+                 МОБИЛЬНЫЕ КОНТРОЛЫ (Отображаются сверху карточки на экранах < lg)
+                 ===================================================================== -->
+            
+            <!-- Вариант 2 (Мобильный): Группы кнопок-пилюль -->
+            <div id="wrapper-pills-mobile" class="w-full lg:hidden" style="display: none;">
+                <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm space-y-3.5">
+                    <div>
+                        <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Длина, м (шаг 0.5 м)</div>
+                        <div class="flex flex-wrap gap-1.5" data-pill-group="length"></div>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Ширина, м</div>
+                        <div class="flex flex-wrap gap-1.5" data-pill-group="width"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Высота борта, м</div>
+                            <div class="flex flex-wrap gap-1.5" data-pill-group="height"></div>
+                        </div>
+                        <div>
+                            <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Цвет ПВХ</div>
+                            <div class="flex flex-wrap gap-1.5" data-pill-group="color"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Левая колонка: ЕДИНСТВЕННАЯ карточка товара -->
+            <!-- Вариант 3 (Мобильный): Выпадающие селекты -->
+            <div id="wrapper-selects-mobile" class="w-full lg:hidden" style="display: none;">
+                <div class="grid grid-cols-2 gap-3 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Длина, м</label>
+                        <select id="select-length-mobile" onchange="setParam('length', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                            <!-- Заполняется через JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Ширина, м</label>
+                        <select id="select-width-mobile" onchange="setParam('width', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                            <!-- Заполняется через JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Высота борта, м</label>
+                        <select id="select-height-mobile" onchange="setParam('height', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                            <option value="0.185">0.185 м</option>
+                            <option value="0.37">0.37 м</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Цвет</label>
+                        <select id="select-color-mobile" onchange="setParam('color', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                            <option value="зелёный">🟢 Зелёный</option>
+                            <option value="коричневый">🟤 Коричневый</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =====================================================================
+                 ЕДИНАЯ КАРТОЧКА ТОВАРА (Неизменная дизайн-концепция для всех 3-х вкладок)
+                 ===================================================================== -->
             <div id="product-card" class="w-full lg:flex-1 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-4 sm:p-6 transition-all duration-300">
                 <div class="flex flex-col md:flex-row gap-6 sm:gap-8 items-start">
                     
-                    <!-- ЛЕВАЯ КОЛОНКА: Монолитный контейнер (Фото + Цена) растягивается по высоте (self-stretch) -->
+                    <!-- ЛЕВАЯ КОЛОНКА: Монолитный контейнер (Фото + Цена) -->
                     <div class="w-full md:w-[60%] flex flex-col border border-gray-100 rounded-xl overflow-hidden bg-gray-50/50 md:self-stretch justify-between">
                         
                         <!-- Верхняя часть: Изображение центрируется внутри и не деформируется -->
@@ -166,49 +220,117 @@
                 </div>
             </div>
 
-            <!-- Десктопный блок селекторов -->
-            <div class="hidden lg:flex flex-col w-80 bg-white p-5 rounded-2xl border border-gray-200 shadow-sm sticky top-24">
-                <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Параметры грядки</h3>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Длина конструкции</label>
-                        <select id="select-length-desktop" onchange="syncSelectors(this, 'length')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
-                            <option value="2">2 метра</option>
-                            <option value="3" selected>3 метра</option>
-                            <option value="4">4 метра</option>
-                            <option value="6">6 метров</option>
-                            <option value="12">12 метров</option>
-                        </select>
+            <!-- =====================================================================
+                 ВАРИАНТ 1: МАТРИЦА РАЗМЕРОВ (Ширина x Длина = 140 кнопок) + ОТДЕЛЬНЫЕ КНОПКИ ВЫСОТЫ И ЦВЕТА
+                 ===================================================================== -->
+            <div id="wrapper-matrix-full" class="w-full" style="display: none;">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-gray-200 shadow-sm space-y-6">
+                    
+                    <!-- Отдельные ряды кнопок (как "Шаг дуги" на примере) -->
+                    <div class="flex flex-col sm:flex-row gap-6 pb-5 border-b border-gray-100">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2.5">Выберите высоту борта</h3>
+                            <div id="matrix-height-buttons" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-900 mb-2.5">Выберите цвет</h3>
+                            <div id="matrix-color-buttons" class="flex flex-wrap gap-2"></div>
+                        </div>
                     </div>
 
+                    <!-- Сетка-матрица 140 комбинаций Ширина x Длина -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Ширина грядки</label>
-                        <select id="select-width-desktop" onchange="syncSelectors(this, 'width')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
-                            <option value="1.4">1.4 метра</option>
-                            <option value="1.5" selected>1.5 метра</option>
-                        </select>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <h3 class="text-sm font-bold text-gray-900">Выберите свой размер (Ширина × Длина)</h3>
+                            <span class="text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-lg self-start sm:self-auto">
+                                Матрица из 140 размеров (7 вариантов ширины × 20 длин)
+                            </span>
+                        </div>
+                        <div id="matrix-grid-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-2">
+                            <!-- Кнопки генерируются через JS -->
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Высота бортика</label>
-                        <select id="select-height-desktop" onchange="syncSelectors(this, 'height')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
-                            <option value="0.185">0.185 м (Низкий борт)</option>
-                            <option value="0.37" selected>0.37 м (Высокий борт)</option>
-                        </select>
+                </div>
+            </div>
+
+            <!-- =====================================================================
+                 ВАРИАНТ 2 (Десктоп): ГРУППЫ КНОПОК-ПИЛЮЛЬ (Справа столбиком)
+                 ===================================================================== -->
+            <div id="wrapper-pills-desktop" class="hidden lg:block w-80 flex-shrink-0" style="display: none;">
+                <div class="flex flex-col bg-white p-5 rounded-2xl border border-gray-200 shadow-sm sticky top-20">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Параметры грядки</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Длина (шаг 0.5 м)</label>
+                            <div class="grid grid-cols-4 gap-1.5" data-pill-group="length"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Ширина грядки</label>
+                            <div class="flex flex-wrap gap-1.5" data-pill-group="width"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Высота бортика</label>
+                            <div class="flex flex-wrap gap-2" data-pill-group="height"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Цвет ПВХ-профиля</label>
+                            <div class="flex flex-col gap-2" data-pill-group="color"></div>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Цвет ПВХ-профиля</label>
-                        <select id="select-color-desktop" onchange="syncSelectors(this, 'color')" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
-                            <option value="зелёный" selected>🟢 Зелёный сад</option>
-                            <option value="коричневый">🟤 Коричневый стандарт</option>
-                        </select>
+                    <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+                        <span class="text-xs text-gray-400">Доставка в г. <span class="text-gray-600 underline cursor-pointer font-medium">Новосибирск</span> и еще 50 городов РФ.</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="mt-6 pt-4 border-t border-gray-100 text-center">
-                    <span class="text-xs text-gray-400">Доставка в г. <span class="text-gray-600 underline cursor-pointer font-medium">Новосибирск</span> и еще 50 городов РФ.</span>
+            <!-- =====================================================================
+                 ВАРИАНТ 3 (Десктоп): ВЫПАДАЮЩИЕ СЕЛЕКТЫ (Справа столбиком — оригинальный макет)
+                 ===================================================================== -->
+            <div id="wrapper-selects-desktop" class="hidden lg:block w-80 flex-shrink-0" style="display: none;">
+                <div class="flex flex-col bg-white p-5 rounded-2xl border border-gray-200 shadow-sm sticky top-20">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">Параметры грядки</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Длина конструкции</label>
+                            <select id="select-length-desktop" onchange="setParam('length', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                                <!-- Заполняется через JS -->
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Ширина грядки</label>
+                            <select id="select-width-desktop" onchange="setParam('width', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                                <!-- Заполняется через JS -->
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Высота бортика</label>
+                            <select id="select-height-desktop" onchange="setParam('height', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                                <option value="0.185">0.185 м (Низкий борт)</option>
+                                <option value="0.37">0.37 м (Высокий борт)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Цвет ПВХ-профиля</label>
+                            <select id="select-color-desktop" onchange="setParam('color', this.value)" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 transition-all cursor-pointer">
+                                <option value="зелёный">🟢 Зелёный сад</option>
+                                <option value="коричневый">🟤 Коричневый стандарт</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+                        <span class="text-xs text-gray-400">Доставка в г. <span class="text-gray-600 underline cursor-pointer font-medium">Новосибирск</span> и еще 50 городов РФ.</span>
+                    </div>
                 </div>
             </div>
 
@@ -222,11 +344,27 @@
     </div>
 
     <script>
+        // Единое состояние выбранных параметров (синхронизируется между всеми 3-мя вкладками)
+        const currentState = {
+            length: '3',
+            width: '1.5',
+            height: '0.37',
+            color: 'зелёный'
+        };
+
+        let activeVariant = 'matrix';
+
         const productsDatabase = {};
 
-        const lengths = [2, 3, 4, 6, 12];
-        const widths = [1.4, 1.5];
-        const heights = [0.185, 0.37];
+        // 20 вариантов длины: 2, затем от 3 до 12 с шагом 0.5
+        const lengths = ['2'];
+        for (let l = 3; l <= 12; l += 0.5) {
+            lengths.push(String(l));
+        }
+
+        // 7 вариантов ширины
+        const widths = ['0.5', '0.6', '0.75', '0.8', '1', '1.4', '1.5'];
+        const heights = ['0.185', '0.37'];
         const colors = ['зелёный', 'коричневый'];
 
         // Цветовая палитра для генерации SVG
@@ -235,14 +373,18 @@
             'коричневый': { main: '#78350f', light: '#92400e', dark: '#451a03', line: '#270b00' }
         };
 
+        // Генерация базы данных всех 560 комбинаций (20 длин * 7 ширин * 2 высоты * 2 цвета)
         lengths.forEach(l => {
             widths.forEach(w => {
                 heights.forEach(h => {
                     colors.forEach(c => {
                         const key = `${l}-${w}-${h}-${c}`;
+                        const numL = parseFloat(l);
+                        const numW = parseFloat(w);
+                        const numH = parseFloat(h);
                         
-                        let basePrice = Math.round(l * w * h * 3000 + (h === 0.37 ? 4000 : 2000) * (l/2));
-                        if (basePrice < 2500) basePrice = 2850; 
+                        let basePrice = Math.round(numL * numW * numH * 3000 + (h === '0.37' ? 4000 : 2000) * (numL / 2));
+                        if (basePrice < 1800) basePrice = 1950; 
                         
                         const oldPrice = Math.round(basePrice * 1.05); 
                         const economy = oldPrice - basePrice;
@@ -260,7 +402,182 @@
             });
         });
 
-        // Функция динамической генерации SVG-чертежа грядки
+        // Пояснения для каждого из 3-х режимов (для демонстрации клиенту)
+        const variantHints = {
+            matrix: `<strong>Вариант 1 (Матрица размеров + отдельные кнопки):</strong> Из-за 7 вариантов ширины и 20 вариантов длины сетка раздувается в гигантскую «простыню» из <strong>140 однотипных кнопок</strong>. Найти нужную пару чисел глазами крайне тяжело, а на смартфоне такой блок занимает несколько экранов прокрутки.`,
+            pills: `<strong>Вариант 2 (Группы кнопок-пилюль — Рекомендуемый UX):</strong> Вместо 140 смешанных пар «Ширина × Длина» пользователь видит 20 кнопок длины и 7 кнопок ширины по отдельности (всего 27 кнопок вместо 140!). Все опции перед глазами, переключение в 1 клик.`,
+            selects: `<strong>Вариант 3 (Выпадающие селекты):</strong> Максимально компактный вид при большом ассортименте размеров (20 длин и 7 ширин аккуратно скрыты в списки). Экономит место на экране, но требует 2 клика на изменение параметра.`
+        };
+
+        // Заполнение <select> длинами и ширинами
+        function populateSelects() {
+            const lengthDesktop = document.getElementById('select-length-desktop');
+            const lengthMobile = document.getElementById('select-length-mobile');
+            lengthDesktop.innerHTML = lengths.map(l => `<option value="${l}">${l} м</option>`).join('');
+            lengthMobile.innerHTML = lengths.map(l => `<option value="${l}">${l} м</option>`).join('');
+
+            const widthDesktop = document.getElementById('select-width-desktop');
+            const widthMobile = document.getElementById('select-width-mobile');
+            widthDesktop.innerHTML = widths.map(w => `<option value="${w}">${w} м</option>`).join('');
+            widthMobile.innerHTML = widths.map(w => `<option value="${w}">${w} м</option>`).join('');
+        }
+
+        // Переключение между 3-мя вариантами UI с жестким контролем видимости через inline style
+        function switchVariant(variant) {
+            activeVariant = variant;
+
+            ['matrix', 'pills', 'selects'].forEach(v => {
+                const btn = document.getElementById(`tab-btn-${v}`);
+                if (v === variant) {
+                    btn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-bold bg-green-600 text-white shadow-sm transition-all whitespace-nowrap';
+                } else {
+                    btn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-white hover:bg-gray-700/60 transition-all whitespace-nowrap';
+                }
+            });
+
+            document.getElementById('variant-hint-text').innerHTML = variantHints[variant];
+
+            const mainContainer = document.getElementById('main-layout-container');
+            if (variant === 'matrix') {
+                mainContainer.className = 'flex flex-col gap-6 items-start mb-16';
+            } else {
+                mainContainer.className = 'flex flex-col lg:flex-row gap-8 items-start mb-16';
+            }
+
+            document.getElementById('wrapper-matrix-full').style.display = 'none';
+            document.getElementById('wrapper-pills-mobile').style.display = 'none';
+            document.getElementById('wrapper-pills-desktop').style.display = 'none';
+            document.getElementById('wrapper-selects-mobile').style.display = 'none';
+            document.getElementById('wrapper-selects-desktop').style.display = 'none';
+
+            if (variant === 'matrix') {
+                document.getElementById('wrapper-matrix-full').style.display = 'block';
+            } else if (variant === 'pills') {
+                document.getElementById('wrapper-pills-mobile').style.display = '';
+                document.getElementById('wrapper-pills-desktop').style.display = '';
+            } else if (variant === 'selects') {
+                document.getElementById('wrapper-selects-mobile').style.display = '';
+                document.getElementById('wrapper-selects-desktop').style.display = '';
+            }
+        }
+
+        function setParam(paramName, value) {
+            currentState[paramName] = value;
+            syncAllControls();
+            updateProductCard();
+        }
+
+        function setSizePair(w, l) {
+            currentState.width = w;
+            currentState.length = l;
+            syncAllControls();
+            updateProductCard();
+        }
+
+        function syncAllControls() {
+            document.getElementById('select-length-desktop').value = currentState.length;
+            document.getElementById('select-length-mobile').value = currentState.length;
+            document.getElementById('select-width-desktop').value = currentState.width;
+            document.getElementById('select-width-mobile').value = currentState.width;
+            document.getElementById('select-height-desktop').value = currentState.height;
+            document.getElementById('select-height-mobile').value = currentState.height;
+            document.getElementById('select-color-desktop').value = currentState.color;
+            document.getElementById('select-color-mobile').value = currentState.color;
+
+            renderPillGroups();
+            renderMatrixSection();
+        }
+
+        // Отрисовка кнопок-пилюль для Варианта 2
+        function renderPillGroups() {
+            const groupsConfig = {
+                length: lengths.map(v => ({ val: v, label: `${v} м` })),
+                width: widths.map(v => ({ val: v, label: `${v} м` })),
+                height: heights.map(v => ({ val: v, label: `${v} м` })),
+                color: [
+                    { val: 'зелёный', label: '🟢 Зелёный' },
+                    { val: 'коричневый', label: '🟤 Коричневый' }
+                ]
+            };
+
+            Object.keys(groupsConfig).forEach(paramKey => {
+                const containers = document.querySelectorAll(`[data-pill-group="${paramKey}"]`);
+                containers.forEach(container => {
+                    container.innerHTML = groupsConfig[paramKey].map(item => {
+                        const isActive = currentState[paramKey] === item.val;
+                        const activeClasses = isActive 
+                            ? 'bg-green-600 text-white border-green-600 font-semibold shadow-sm' 
+                            : 'bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:text-green-700 font-medium';
+                        return `
+                            <button type="button" 
+                                onclick="setParam('${paramKey}', '${item.val}')" 
+                                class="px-2.5 py-1.5 text-xs rounded-lg border transition-all cursor-pointer text-center ${activeClasses}">
+                                ${item.label}
+                            </button>
+                        `;
+                    }).join('');
+                });
+            });
+        }
+
+        // Отрисовка Варианта 1: отдельные кнопки высоты/цвета + матрица 140 размеров (Ширина x Длина)
+        function renderMatrixSection() {
+            const heightContainer = document.getElementById('matrix-height-buttons');
+            heightContainer.innerHTML = heights.map(h => {
+                const isActive = currentState.height === h;
+                const classes = isActive
+                    ? 'bg-green-600 text-white border-green-600 font-semibold shadow-sm'
+                    : 'bg-white text-gray-700 border-green-600/50 hover:border-green-600 font-medium';
+                return `
+                    <button type="button"
+                        onclick="setParam('height', '${h}')"
+                        class="px-3.5 py-2 text-xs rounded-lg border transition-all cursor-pointer ${classes}">
+                        Борт ${h} м
+                    </button>
+                `;
+            }).join('');
+
+            const colorContainer = document.getElementById('matrix-color-buttons');
+            const colorItems = [
+                { val: 'зелёный', label: '🟢 Зелёный' },
+                { val: 'коричневый', label: '🟤 Коричневый' }
+            ];
+            colorContainer.innerHTML = colorItems.map(item => {
+                const isActive = currentState.color === item.val;
+                const classes = isActive
+                    ? 'bg-green-600 text-white border-green-600 font-semibold shadow-sm'
+                    : 'bg-white text-gray-700 border-green-600/50 hover:border-green-600 font-medium';
+                return `
+                    <button type="button"
+                        onclick="setParam('color', '${item.val}')"
+                        class="px-3.5 py-2 text-xs rounded-lg border transition-all cursor-pointer ${classes}">
+                        ${item.label}
+                    </button>
+                `;
+            }).join('');
+
+            // Матрица 140 комбинаций (Ширина x Длина)
+            const gridContainer = document.getElementById('matrix-grid-container');
+            let html = '';
+            widths.forEach(w => {
+                lengths.forEach(l => {
+                    const isSelected = (currentState.width === w && currentState.length === l);
+                    const btnClasses = isSelected
+                        ? 'bg-green-600 text-white border-green-600 font-semibold shadow-sm ring-2 ring-green-600/20'
+                        : 'bg-white text-gray-700 border-green-600/50 hover:border-green-600 hover:bg-green-50/40 font-medium';
+
+                    html += `
+                        <button type="button"
+                            onclick="setSizePair('${w}', '${l}')"
+                            class="px-2 py-2 text-xs rounded-lg border transition-all text-center cursor-pointer whitespace-nowrap ${btnClasses}">
+                            ${w} × ${l} м
+                        </button>
+                    `;
+                });
+            });
+            gridContainer.innerHTML = html;
+        }
+
         function generateBedSVG(colorName, heightVal) {
             const colors = colorPalette[colorName] || colorPalette['зелёный'];
             const hOffset = heightVal === '0.37' ? 45 : 25;
@@ -306,32 +623,8 @@
             `;
         }
 
-        // Синхронизация селекторов
-        function syncSelectors(element, type) {
-            const val = element.value;
-            if (type === 'length') {
-                document.getElementById('select-length-desktop').value = val;
-                document.getElementById('select-length-mobile').value = val;
-            } else if (type === 'width') {
-                document.getElementById('select-width-desktop').value = val;
-                document.getElementById('select-width-mobile').value = val;
-            } else if (type === 'height') {
-                document.getElementById('select-height-desktop').value = val;
-                document.getElementById('select-height-mobile').value = val;
-            } else if (type === 'color') {
-                document.getElementById('select-color-desktop').value = val;
-                document.getElementById('select-color-mobile').value = val;
-            }
-            updateProductCard();
-        }
-
-        // Обновление данных в карточке
         function updateProductCard() {
-            const length = document.getElementById('select-length-desktop').value;
-            const width = document.getElementById('select-width-desktop').value;
-            const height = document.getElementById('select-height-desktop').value;
-            const color = document.getElementById('select-color-desktop').value;
-
+            const { length, width, height, color } = currentState;
             const combinationKey = `${length}-${width}-${height}-${color}`;
             const data = productsDatabase[combinationKey];
 
@@ -349,7 +642,7 @@
             setTimeout(() => {
                 container.innerHTML = generateBedSVG(color, height);
                 container.style.opacity = 1;
-            }, 100);
+            }, 80);
 
             document.getElementById('param-length').innerText = `${length} м`;
             document.getElementById('param-width').innerText = `${width} м`;
@@ -374,7 +667,10 @@
         }
 
         window.onload = function() {
+            populateSelects();
+            syncAllControls();
             updateProductCard();
+            switchVariant('matrix');
         };
     </script>
 </body>
